@@ -1,0 +1,49 @@
+<form class="form-floating col-3 my-4">
+    <input type="text" name="kereses" [(ngModel)]="szo" class="form-control " id="floatingInputInvalid">
+    <label for="floatingInputInvalid">Keresés:</label>
+    <!-- <button (click)=kereses(ekszer) class="btn btn-primary">Töröl</button>   -->
+</form>
+<div class="row my-4">
+<div class="col-3 ">
+<select [(ngModel)]="rendezendo" (change)="rendezes()" class="form-select col-3 " aria-label="sasasas">
+    <option value="0" selected>Sorba rendezés</option>
+    <option value="1">Ár</option>
+    <option value="2">Leírás</option>
+
+  </select>
+  </div>
+  <div class="col ms-3">
+    <button [disabled]="rendezendo==0" (click)="irany = !irany" class="btn btn-primary">Fordítva</button>
+</div>
+</div>
+<div class="row  row-cols-12 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+    <div *ngFor="let ekszer of ekszerek|search:szo|rendezes:rendezendo:irany" class="col-12">
+      <div class="card h-100">
+        <img class="card-img-top" [src]="ekszer.kep" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Nyaklánc</h5>
+            <ng-container *ngIf="modositasAlatt(ekszer.id); else vegleges">
+                <div class="form-floating">
+                    <textarea [(ngModel)]="ekszer.nev" name="leiras" class="form-control" id="floatingTextarea"></textarea>
+                    <label for="floatingTextarea">Leírás</label>
+                </div>
+                <form class="form-floating">
+                    <input type="text" name="ar" [(ngModel)]="ekszer.ar" class="form-control " id="floatingInputInvalid">
+                    <label for="floatingInputInvalid">Ár</label>
+                  </form>
+            </ng-container>
+            <ng-template #vegleges>
+                <p class="card-text">{{ekszer.nev}}</p>
+                <h5 class="card-title">{{ekszer.ar}} Ft</h5>
+            </ng-template>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-primary">Megveszem</button>
+            <button  (click)="ment(ekszer)" *ngIf="modositasAlatt(ekszer.id)" class="btn btn-primary">Mentés</button>
+            <button  *ngIf="!modositasAlatt(ekszer.id)" (click)="modosit(ekszer)" class="btn btn-primary">Módosít</button>
+            <button (click)=torol(ekszer) class="btn btn-primary">Töröl</button>
+        </div>
+      </div>
+    </div>
+</div>
+  

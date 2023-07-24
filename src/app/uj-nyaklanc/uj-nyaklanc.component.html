@@ -1,0 +1,13 @@
+<div class="form-floating">
+    <input type="text" name="kep" [(ngModel)]="ekszer.kep" class="form-control " id="floatingInputInvalid">
+    <label for="floatingInputInvalid">Kép(Url)</label>
+</div>
+<div class="form-floating">
+    <textarea [(ngModel)]="ekszer.nev" name="leiras" class="form-control" id="floatingTextarea"></textarea>
+    <label for="floatingTextarea">Leírás</label>
+</div>
+<div class="form-floating">
+    <input type="number" name="ar" [(ngModel)]="ekszer.ar" class="form-control " id="floatingInputInvalid">
+    <label for="floatingInputInvalid">Ár</label>
+</div>
+<button (click)=ment(ekszer) class="btn btn-primary">Mentés</button>
